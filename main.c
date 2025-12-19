@@ -4,22 +4,17 @@
 int main()
 {
 
-    int *a = (int *)malloc(100 * sizeof(int));
+    int initial_size = 10;
+    int *a = (int *)malloc(initial_size * sizeof(int));
 
-    if (a == NULL)
-    {
-        printf("Init failed");
-        exit(0);
-    }
-    
     for (int i = 0; i < 100; i++)
     {
-        a[i] = i;
+        a[i] = i + 1;
     }
 
-    for (int j = 0; j < 100; j++)
+    for (int i = 0; i < 100; i++)
     {
-        printf("%d\n", a[j]);
+        printf("a : %d\n", a[i]);
     }
 
     return 0;
