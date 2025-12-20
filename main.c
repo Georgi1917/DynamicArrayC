@@ -1,21 +1,47 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct 
+{
+
+    int *items;
+    size_t count;
+    size_t capacity;
+
+} Numbers;
+
+#define list_append(List, item) \
+    if (List.count >= List.capacity) \
+        { \
+            \
+            if (List.capacity == 0) List.capacity = 20; \
+            else List.capacity *= 2; \
+            List.items = realloc(List.items, List.capacity * sizeof(*List.items)); \
+            \
+        } \
+        List.items[List.count++] = item; \
+
+
 int main()
 {
 
-    int initial_size = 10;
-    int *a = (int *)malloc(initial_size * sizeof(int));
-
-    for (int i = 0; i < 100; i++)
+    Numbers nums = { 0 };
+    
+    for (int i = 0; i < 50; i++)
     {
-        a[i] = i + 1;
+        
+        list_append(nums, i);
+
     }
 
-    for (int i = 0; i < 100; i++)
+    for (size_t i = 0; i < nums.count; i++)
     {
-        printf("a : %d\n", a[i]);
+        
+        printf("%d\n", nums.items[i]);
+
     }
+
+    free(nums.items);
 
     return 0;
 
