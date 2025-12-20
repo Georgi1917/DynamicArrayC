@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct 
 {
@@ -21,25 +22,35 @@ typedef struct
         } \
         List.items[List.count++] = item; \
 
+#define list_delete(List, index) \
+    if (index > List.count) \
+    { \
+        printf("error while deleting..."); \
+    } \
+    \
+    int *temp = malloc((List.count - 1) * sizeof(*List.items)); \
+    \
+    memmove(temp, List.items, (index + 1) * sizeof(*List.items)); \
+    memmove(temp + index, (List.items) + (index + 1), (List.count - index) * sizeof(*List.items)); \
+    \
+    free(List.items); \
+    List.count--; \
+    List.items = temp; 
+
 
 int main()
 {
 
     Numbers nums = { 0 };
     
-    for (int i = 0; i < 50; i++)
-    {
-        
-        list_append(nums, i);
+    for (int i = 0; i < 10; i++) { list_append(nums, i); }
 
-    }
-
-    for (size_t i = 0; i < nums.count; i++)
-    {
-        
-        printf("%d\n", nums.items[i]);
-
-    }
+    printf("Before Delete: \n");
+    for (size_t i = 0; i < nums.count; i++) printf("%d ", nums.items[i]);
+    
+    list_delete(nums, 7);
+    printf("\nAfter Delete: \n");
+    for (size_t i = 0; i < nums.count; i++) printf("%d ", nums.items[i]);
 
     free(nums.items);
 
