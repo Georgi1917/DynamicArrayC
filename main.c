@@ -11,6 +11,16 @@ typedef struct
 
 } Numbers;
 
+typedef struct 
+{
+
+    char **items;
+    size_t count;
+    size_t capacity;
+
+} List_Strings;
+
+
 #define list_append(List, item) \
     if (List.count >= List.capacity) \
         { \
@@ -41,18 +51,15 @@ typedef struct
 int main()
 {
 
-    Numbers nums = { 0 };
-    
-    for (int i = 0; i < 10; i++) { list_append(nums, i); }
+    List_Strings strs = { 0 };
 
-    printf("Before Delete: \n");
-    for (size_t i = 0; i < nums.count; i++) printf("%d ", nums.items[i]);
-    
-    list_delete(nums, 7);
-    printf("\nAfter Delete: \n");
-    for (size_t i = 0; i < nums.count; i++) printf("%d ", nums.items[i]);
+    list_append(strs, "gsldhgsdhgjsdghsldk;gjpiogow");
+    list_append(strs, "fou9317yrhoeng/v");
+    list_append(strs, "azxcgwe4asfadf");
 
-    free(nums.items);
+    for (size_t i = 0; i < strs.count; i++) printf("%s\n", strs.items[i]);
+
+    free(strs.items);
 
     return 0;
 
