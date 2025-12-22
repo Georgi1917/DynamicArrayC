@@ -20,6 +20,30 @@ typedef struct
 
 } List_Strings;
 
+void append_string(List_Strings *List, char* item)
+{
+
+    if (List->count >= List->capacity)
+    {
+        if (List->capacity == 0) List->capacity = 20;
+        else List->capacity *= 2;
+        List->items = realloc(List->items, List->capacity * sizeof(char *));
+    }
+
+    List->items[List->count] = malloc((strlen(item) + 1) * sizeof(char));
+    strcpy(List->items[List->count], item);
+    List->count++;
+
+}
+
+void free_string_arr(List_Strings *List)
+{
+
+    for (size_t i = 0; i < List->count; i++) free(List->items[i]);
+
+    free(List->items);
+
+}
 
 #define list_append(List, item) \
     if (List.count >= List.capacity) \
@@ -53,13 +77,15 @@ int main()
 
     List_Strings strs = { 0 };
 
-    list_append(strs, "gsldhgsdhgjsdghsldk;gjpiogow");
-    list_append(strs, "fou9317yrhoeng/v");
-    list_append(strs, "azxcgwe4asfadf");
+    append_string(&strs, "Pesho1");
+    append_string(&strs, "Pesho2");
+    append_string(&strs, "Pesho3");
+    append_string(&strs, "Pesho4");
+    append_string(&strs, "Pesho5");
 
     for (size_t i = 0; i < strs.count; i++) printf("%s\n", strs.items[i]);
 
-    free(strs.items);
+    free_string_arr(&strs);
 
     return 0;
 
