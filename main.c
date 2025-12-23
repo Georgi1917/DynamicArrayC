@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "lib/d_string_arr.h"
 
 typedef struct 
 {
@@ -10,40 +11,6 @@ typedef struct
     size_t capacity;
 
 } Numbers;
-
-typedef struct 
-{
-
-    char **items;
-    size_t count;
-    size_t capacity;
-
-} List_Strings;
-
-void append_string(List_Strings *List, char* item)
-{
-
-    if (List->count >= List->capacity)
-    {
-        if (List->capacity == 0) List->capacity = 20;
-        else List->capacity *= 2;
-        List->items = realloc(List->items, List->capacity * sizeof(char *));
-    }
-
-    List->items[List->count] = malloc((strlen(item) + 1) * sizeof(char));
-    strcpy(List->items[List->count], item);
-    List->count++;
-
-}
-
-void free_string_arr(List_Strings *List)
-{
-
-    for (size_t i = 0; i < List->count; i++) free(List->items[i]);
-
-    free(List->items);
-
-}
 
 #define list_append(List, item) \
     if (List.count >= List.capacity) \
@@ -83,6 +50,13 @@ int main()
     append_string(&strs, "Pesho4");
     append_string(&strs, "Pesho5");
 
+    printf("Before Delete : \n");
+    for (size_t i = 0; i < strs.count; i++) printf("%s\n", strs.items[i]);
+    
+    printf("After Delete : \n");
+    delete_string(&strs, 1);
+    delete_string(&strs, 1);
+    delete_string(&strs, 0);    
     for (size_t i = 0; i < strs.count; i++) printf("%s\n", strs.items[i]);
 
     free_string_arr(&strs);
