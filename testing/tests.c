@@ -29,17 +29,11 @@ void test_list_strings()
 void test_list_integers()
 {
 
-    Int_List list = init_list();
+    Int_List list = init_list_int();
 
     for (size_t i = 0; i < 10; i++) { list_append(list, i); };
 
     printf("Before delete : \n");
-    for (size_t i = 0; i < list.count; i++) printf("%d\n", list.items[i]);
-
-    list_delete(list, 2);
-    list_delete(list, 4);
-
-    printf("After delete : \n");
     for (size_t i = 0; i < list.count; i++) printf("%d\n", list.items[i]);
 
     printf("\n");

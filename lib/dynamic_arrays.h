@@ -23,6 +23,8 @@ typedef struct
 
 } Int_List;
 
+Int_List    init_list_int();
+
 #define list_append(List, item) \
     if (List.count >= List.capacity) \
         { \
@@ -34,14 +36,5 @@ typedef struct
         } \
         List.items[List.count++] = item; \
 
-#define list_delete(List, index) \
-    if (List._list_type == INT) \
-    { \
-        _list_delete_int(&List, index); \
-    }; 
-
 #define list_free(List) \
     free(List.items);
-
-Int_List init_list();
-void _list_delete_int(Int_List *List, size_t index);
